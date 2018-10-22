@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "347555907285",
+    "firebase_url": "https://booker-8102.firebaseio.com",
+    "project_id": "booker-8102",
+    "storage_bucket": "booker-8102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347555907285:android:21adf702b92fe4f0",
+        "android_client_info": {
+          "package_name": "com.gianmoura.booker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347555907285-blqfhhn23q28noaml7kbme8n2vp30h1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gianmoura.booker",
+            "certificate_hash": "5e98e0b29c063402244eebfe860c081ff371dca7"
+          }
+        },
+        {
+          "client_id": "347555907285-jtns6gp3r72sba9s8hc1r14he011fri8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFhh19BiIWXpF1qjReK7DPeYwHTaD0lqo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347555907285-jtns6gp3r72sba9s8hc1r14he011fri8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
