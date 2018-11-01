@@ -10,6 +10,8 @@ public class BookerUser {
     private String name;
     private String email;
     private String password;
+    private String lat;
+    private String lon;
 
     public BookerUser() {
     }
@@ -51,5 +53,21 @@ public class BookerUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
     }
 }

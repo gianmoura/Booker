@@ -68,7 +68,7 @@ public class SigninActivity extends Activity {
                     user.setId(firebaseUser.getUid());
                     user.save();
                     Toast.makeText(SigninActivity.this, "Conta criada com sucesso.", Toast.LENGTH_LONG).show();
-                    Intent intent =  new Intent(SigninActivity.this, BookFilterActivity.class);
+                    Intent intent =  new Intent(SigninActivity.this, MainActivity.class);
                     startActivity( intent );
                     finish();
                 }else {

@@ -1,47 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     tools:context=".activity.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/logo_largura"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="48dp"
-        android:contentDescription="@string/logo_content_description"
-        android:src="@drawable/books_render"
-        app:layout_constraintBottom_toTopOf="@+id/txtAlert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/txtAlert"
-        android:layout_width="@dimen/logo_largura"
+    <com.gianmoura.booker.helper.SlidingTabLayout
+        android:id="@+id/stl_main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
-        android:text="@string/noConnectionALert"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:background="@color/colorPrimary">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="165dp"
-        android:text="@string/alert_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAlert" />
+    </com.gianmoura.booker.helper.SlidingTabLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

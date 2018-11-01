@@ -33,13 +33,13 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         if (!Utils.isOnline(this)){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, AlertActivity.class));
             finish();
         }
         ButterKnife.bind(this);
     }
 
-    public void signinRedirect(View view){
+    public void registerRedirect(View view){
         startActivity( new Intent(this, SigninActivity.class) );
     }
 
@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Você foi logado com sucesso.", Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent( LoginActivity.this, BookFilterActivity.class) );
+                    startActivity( new Intent( LoginActivity.this, MainActivity.class) );
                     finish();
                 }else {
                     String erro = "";
