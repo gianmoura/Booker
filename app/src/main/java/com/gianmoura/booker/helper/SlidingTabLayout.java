@@ -2,22 +2,17 @@ package com.gianmoura.booker.helper;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.gianmoura.booker.R;
 import com.gianmoura.booker.adapter.TabAdapter;
 
 /**
@@ -37,6 +32,7 @@ import com.gianmoura.booker.adapter.TabAdapter;
  * providing the layout ID of your custom layout.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
+
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
      * {@link #setCustomTabColorizer(TabColorizer)}.
@@ -216,6 +212,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     private void scrollToTab(int tabIndex, int positionOffset) {
         final int tabStripChildCount = mTabStrip.getChildCount();
+        if (!Utils.isLoggedIn()){
+            Utils.showBlockedAccessMassage(getContext());
+            return;
+        }
         if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
             return;
         }
@@ -285,6 +285,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private class TabClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            if (!Utils.isLoggedIn()){
+                Utils.showBlockedAccessMassage(getContext());
+                return;
+            }
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
                     mViewPager.setCurrentItem(i);

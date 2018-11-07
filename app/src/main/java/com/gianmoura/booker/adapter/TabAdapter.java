@@ -5,58 +5,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.gianmoura.booker.R;
-import com.gianmoura.booker.fragment.CollectionFragment;
-import com.gianmoura.booker.fragment.FilterFragment;
-import com.gianmoura.booker.fragment.NegocationsFragment;
-import com.gianmoura.booker.fragment.PreferencesFragment;
-import com.gianmoura.booker.fragment.ProfileFragment;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TabAdapter extends FragmentStatePagerAdapter {
 
-    private int[] icons = {
-            R.drawable.ic_action_book,
-            R.drawable.ic_library_books,
-            R.drawable.ic_message,
-            R.drawable.ic_action_settings,
-            R.drawable.ic_action_user};
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<Integer> mFragmentIconsList = new ArrayList<>();
 
     public TabAdapter(FragmentManager fm) {
         super(fm);
     }
 
+    public void addFragment(Fragment fragment, int iconId) {
+        mFragmentList.add(fragment);
+        mFragmentIconsList.add(iconId);
+    }
+
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
-
-        switch (position){
-            case 0:
-                fragment = new FilterFragment();
-                break;
-            case 1:
-                fragment = new CollectionFragment();
-                break;
-            case 2:
-                fragment = new NegocationsFragment();
-                break;
-            case 3:
-                fragment = new PreferencesFragment();
-                break;
-            case 4:
-                fragment = new ProfileFragment();
-                break;
-        }
-
-        return fragment;
+        return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return icons.length;
+        return mFragmentList.size();
     }
 
     public int getDrawableId(int position) {
-        return icons[position];
+        return mFragmentIconsList.get(position);
     }
 
     @Nullable
