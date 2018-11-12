@@ -11,12 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Utils {
 
     public static boolean isOnline(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected())
-            return true;
-        else
-            return false;
+        return Connectivity.isConnected(context);
     }
 
     public static boolean isLoggedIn() {
