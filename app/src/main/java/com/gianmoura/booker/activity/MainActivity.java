@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_signin:
                 redirectToLogin();
                 return true;
+            case R.id.item_settings:
+                startActivity(new Intent(this, AddressActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

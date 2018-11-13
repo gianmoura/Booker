@@ -4,10 +4,10 @@
     <string name="alert_button">Tentar novamente</string>
     <string name="login_button">Entrar</string>
     <string name="hint_email">Digite seu email</string>
-    <string name="hint_senha">Digite sua senha</string>
+    <string name="hint_senha">Senha de acesso</string>
     <string name="hint_name">Digite seu nome</string>
-    <string name="signin_button">Cadastrar</string>
-    <string name="link_new_account">Não tem conta? Cadastre-se.</string>
+    <string name="signin_button">Criar conta</string>
+    <string name="link_new_account">Não tem conta? Crie aqui.</string>
     <string name="noConnectionALert">Não foi possível carregar. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="title_activity_teste">Sign in</string>
     <!-- Strings related to login -->
@@ -29,4 +29,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="link_login_activity">Já tenho uma conta</string>
+    <string name="hint_address">Pesquise pelo seu endereço</string>
 </resources>
