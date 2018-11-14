@@ -3,10 +3,7 @@ package com.gianmoura.booker.helper;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.Toast;
-
 import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,7 +33,7 @@ public class Utils {
         String address = "";
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
+            geocoder.getFromLocationName("", 1);
             if (addresses.size() > 0) {
                 Address fetchedAddress = addresses.get(0);
                 StringBuilder strAddress = new StringBuilder();
@@ -51,4 +48,5 @@ public class Utils {
         }
         return address;
     }
+
 }

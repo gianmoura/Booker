@@ -12,7 +12,7 @@
         android:id="@+id/txtLogar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="89dp"
+        android:layout_marginBottom="27dp"
         android:clickable="true"
         android:onClick="loginRedirect"
         android:text="@string/link_login_activity"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="42dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="46dp"
         android:ems="10"
         android:hint="@string/hint_name"
         android:inputType="textPersonName"
@@ -41,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="42dp"
         android:ems="10"
         android:hint="@string/hint_email"
@@ -58,7 +59,7 @@
         android:ems="10"
         android:hint="@string/hint_senha"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearchAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
@@ -69,23 +70,63 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="42dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/divider"
         android:text="@string/signin_button"
         app:layout_constraintBottom_toTopOf="@+id/txtLogar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPass" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSelectedAddress" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="@dimen/logo_largura"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="45dp"
         android:contentDescription="@string/logo_content_description"
         android:src="@drawable/books_render"
         app:layout_constraintBottom_toTopOf="@+id/editName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSearchAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="@string/hint_address"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPass" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="Endereço Selecionado:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtSelectedAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchAddress" />
+
+    <TextView
+        android:id="@+id/txtSelectedAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="35dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </android.support.constraint.ConstraintLayout>

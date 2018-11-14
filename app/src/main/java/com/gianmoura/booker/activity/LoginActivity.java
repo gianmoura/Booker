@@ -1,6 +1,7 @@
 package com.gianmoura.booker.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.config.FirebaseConfig;
+import com.gianmoura.booker.helper.BackgroundTask;
 import com.gianmoura.booker.helper.Utils;
 import com.gianmoura.booker.model.BookerUser;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +29,7 @@ public class LoginActivity extends Activity {
     EditText email;
     @BindView(R.id.txtSenha)
     EditText password;
+    BookerUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class LoginActivity extends Activity {
             finish();
         }
         ButterKnife.bind(this);
+        user = new BookerUser();
     }
 
     public void registerRedirect(View view){
@@ -45,13 +49,40 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.btnLogin)
     public void login(){
-        BookerUser user = new BookerUser();
+        if(email.getText().length() == 0 || password.getText().length() == 0){
+            Toast.makeText(this, "Existem campos obrigatórios não preenchidos.", Toast.LENGTH_LONG).show();
+            return;
+        }
         user.setEmail(email.getText().toString());
         user.setPassword(password.getText().toString());
-        validateLogin(user);
+        new AuthenticationTask(this).execute();
     }
 
-    private void validateLogin(BookerUser user) {
+    private class AuthenticationTask extends BackgroundTask {
+
+        public AuthenticationTask(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            validateLogin();
+            super.doInBackground(params);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+        }
+    }
+
+    private void validateLogin() {
         FirebaseAuth firebaseAuth = FirebaseConfig.getFirebaseAuth();
         firebaseAuth.signInWithEmailAndPassword(
                 user.getEmail(),

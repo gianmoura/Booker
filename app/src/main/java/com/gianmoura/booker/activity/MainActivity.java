@@ -1,10 +1,10 @@
 package com.gianmoura.booker.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,14 +25,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     @BindView(R.id.stl_main)
     SlidingTabLayout tabLayout;
     @BindView(R.id.vp_main)
     CustomViewPager viewPager;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    android.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         //Configura Toolbar
         toolbar.setTitle("Booker");
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.icons));
-        setSupportActionBar(toolbar);
+        setActionBar(toolbar);
     }
 
     @Override
@@ -87,10 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 logoutUser();
                 return true;
             case R.id.item_signin:
-                redirectToLogin();
+                redirectTo(new LoginActivity());
+                return true;
+            case R.id.item_create_account:
+                redirectTo(new SigninActivity());
                 return true;
             case R.id.item_settings:
-                startActivity(new Intent(this, AddressActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void redirectToLogin(){
-        startActivity(new Intent(this, LoginActivity.class));
+    public void redirectTo(Activity activity){
+        startActivity(new Intent(this, activity.getClass()));
     }
 }

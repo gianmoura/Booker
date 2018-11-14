@@ -3,15 +3,15 @@ package com.gianmoura.booker.model;
 import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class BookerUser {
     private String id;
     private String name;
     private String email;
     private String password;
-    private String lat;
-    private String lon;
+    private String address;
+    private double lat;
+    private double lng;
 
     public BookerUser() {
     }
@@ -55,19 +55,27 @@ public class BookerUser {
         this.password = password;
     }
 
-    public String getLat() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLon() {
-        return lon;
+    public double getLng() {
+        return lng;
     }
 
-    public void setLon(String lon) {
-        this.lon = lon;
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
