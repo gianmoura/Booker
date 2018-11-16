@@ -18,7 +18,10 @@ public class FilterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_preferences, container, false);
+
+
+
+        return view;    }
 
 }

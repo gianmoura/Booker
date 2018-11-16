@@ -4,6 +4,15 @@ import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+/*
+-Users
+    -uid
+        -name
+        -email
+        -address
+        -lat
+        -lng
+ */
 public class BookerUser {
     private String id;
     private String name;
