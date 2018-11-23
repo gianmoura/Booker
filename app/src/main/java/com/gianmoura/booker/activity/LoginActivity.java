@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
     @OnClick(R.id.btnLogin)
     public void login(){
         if(email.getText().length() == 0 || password.getText().length() == 0){
-            Toast.makeText(this, "Existem campos obrigatórios não preenchidos.", Toast.LENGTH_LONG).show();
+            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.");
             return;
         }
         user.setEmail(email.getText().toString());
@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Você foi logado com sucesso.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Você foi logado com sucesso.", Toast.LENGTH_LONG).show();
                     startActivity( new Intent( LoginActivity.this, MainActivity.class) );
                     finish();
                 }else {
@@ -103,7 +103,7 @@ public class LoginActivity extends Activity {
                     }catch (Exception e){
                         erro = "Processo de login falhou.";
                     }
-                    Toast.makeText(LoginActivity.this, "Erro: " + erro, Toast.LENGTH_LONG).show();
+                    Utils.showAlertModal(LoginActivity.this, erro);
                 }
             }
         });

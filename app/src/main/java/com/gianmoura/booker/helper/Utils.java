@@ -1,16 +1,13 @@
 package com.gianmoura.booker.helper;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.gianmoura.booker.R;
 import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 public class Utils {
 
@@ -23,8 +20,25 @@ public class Utils {
         return firebaseAuth.getCurrentUser() != null;
     }
 
-    public static void showBlockedAccessMassage(Context context){
-        Toast.makeText(context, "Por favor, se identifique para ter acesso total das funcionalidades.", Toast.LENGTH_LONG).show();
+    public static void showBlockedAccessMessage(Context context){
+        showAlertModal(context, "Por favor, se identifique para ter acesso total das funcionalidades.");
+    }
+
+    public static void  showAlertModal(
+            final Context context,
+            final String messageDescription){
+        final FragmentCustomModal customModal = FragmentCustomModal.getInstance(context, R.layout.diolog_alert);
+        TextView message = customModal.getView().findViewById(R.id.dialog_alert_message);
+        message.setText(messageDescription);
+        customModal.show();
+
+        Button alertButton = (Button) customModal.getView().findViewById(R.id.dialog_alert_button_ok);
+        alertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customModal.hide();
+            }
+        });
     }
 
 }

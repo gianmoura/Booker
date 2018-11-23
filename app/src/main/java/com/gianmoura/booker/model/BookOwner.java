@@ -7,16 +7,16 @@ import com.google.firebase.database.Exclude;
 /*
 -BookOwners
     -uid
-        -isbn
+        -bid
             -quantity
             -description
             -value
  */
 public class BookOwner {
     private String uid;
-    private String isbn;
+    private String bid;
     private String description;
-    private String quantity;
+    private int quantity;
     private double value;
 
     public BookOwner() {
@@ -24,7 +24,7 @@ public class BookOwner {
 
     public void save(){
         DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
-        databaseReference.child("bookowners").child(getUid()).child(getIsbn()).setValue(this);
+        databaseReference.child("bookowners").child(getUid()).child(getBid()).setValue(this);
     }
 
     @Exclude
@@ -37,12 +37,12 @@ public class BookOwner {
     }
 
     @Exclude
-    public String getIsbn() {
-        return isbn;
+    public String getBid() {
+        return bid;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
     public String getDescription() {
@@ -53,11 +53,11 @@ public class BookOwner {
         this.description = description;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

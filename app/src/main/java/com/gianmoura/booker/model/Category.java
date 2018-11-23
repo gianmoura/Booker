@@ -22,8 +22,11 @@ public class Category {
     }
 
     public void save(){
-        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
-        databaseReference.child("categories").child(getCid()).setValue(this);
+        DatabaseReference categoriesReference = FirebaseConfig.getDatabaseReference().child("categories");
+        if(getCid() == null){
+            setCid(categoriesReference.push().getKey());
+        }
+        categoriesReference.child(getCid()).setValue(this);
     }
 
     @Exclude

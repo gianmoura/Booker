@@ -45,15 +45,14 @@ public class MainActivity extends FragmentActivity {
         }
         //Instancia TabLayout
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FilterFragment(), R.drawable.ic_action_book);
-        adapter.addFragment(new CollectionFragment(), R.drawable.ic_library_books);
+        adapter.addFragment(new FilterFragment(), R.drawable.ic_search);
+        adapter.addFragment(new CollectionFragment(), R.drawable.ic_action_book);
         adapter.addFragment(new NegocationsFragment(), R.drawable.ic_message);
         adapter.addFragment(new PreferencesFragment(), R.drawable.ic_action_settings);
         adapter.addFragment(new ProfileFragment(), R.drawable.ic_action_user);
 
         viewPager.setAdapter(adapter);
         if (!Utils.isLoggedIn() && viewPager.isPagingEnabled()){
-            Utils.showBlockedAccessMassage(this);
             viewPager.setPagingEnabled(false);
         }else if (Utils.isLoggedIn() && !viewPager.isPagingEnabled()){
             viewPager.setPagingEnabled(true);

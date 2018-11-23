@@ -8,10 +8,12 @@ import java.util.List;
 
 /*
 -Books
-    -isbn
+    -bid
         -title
         -smallThumbnail
         -thumbnail
+        -isbn10
+        -isbn13
         -authors
             -authorName
         -categories
@@ -19,28 +21,34 @@ import java.util.List;
             -cid1
  */
 public class Book {
-    private String isbn;
+    private String bid;
     private String title;
     private String smallThumbnail;
     private String thumbnail;
+    private String isbn10;
+    private String isbn13;
     private List<String> authors;
     private List<String> categories;
+    private BookOwner owner;
 
     public Book() {
     }
 
     public void save(){
-        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
-        databaseReference.child("books").child(getIsbn()).setValue(this);
-    }
-
-    public String getIsbn() {
-        return isbn;
+        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference().child("books");
+        if(getBid() == null){
+            setBid(databaseReference.push().getKey());
+        }
+        databaseReference.child(getBid()).setValue(this);
     }
 
     @Exclude
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
     public String getTitle() {
@@ -67,6 +75,22 @@ public class Book {
         this.thumbnail = thumbnail;
     }
 
+    public String getIsbn10() {
+        return isbn10;
+    }
+
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
+    }
+
+    public String getIsbn13() {
+        return isbn13;
+    }
+
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
+    }
+
     public List<String> getAuthors() {
         return authors;
     }
@@ -81,5 +105,14 @@ public class Book {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
+    }
+
+    @Exclude
+    public BookOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(BookOwner owner) {
+        this.owner = owner;
     }
 }

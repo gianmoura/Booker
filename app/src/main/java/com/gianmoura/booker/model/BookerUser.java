@@ -14,7 +14,7 @@ import com.google.firebase.database.Exclude;
         -lng
  */
 public class BookerUser {
-    private String id;
+    private String uid;
     private String name;
     private String email;
     private String password;
@@ -27,16 +27,16 @@ public class BookerUser {
 
     public void save(){
         DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
-        databaseReference.child("users").child(getId()).setValue(this);
+        databaseReference.child("users").child(getUid()).setValue(this);
     }
 
     @Exclude
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {

@@ -70,7 +70,7 @@ public class SigninActivity extends Activity {
     @OnClick(R.id.btnCadastrar)
     public void signin(){
         if(address.getText().length() == 0 || name.getText().length() == 0 || email.getText().length() == 0 || password.getText().length() == 0){
-            Toast.makeText(this, "Existem campos obrigatórios não preenchidos.", Toast.LENGTH_LONG).show();
+            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.");
             return;
         }
         user.setName(name.getText().toString());
@@ -113,7 +113,7 @@ public class SigninActivity extends Activity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     FirebaseUser firebaseUser = task.getResult().getUser();
-                    user.setId(firebaseUser.getUid());
+                    user.setUid(firebaseUser.getUid());
                     user.save();
                     Toast.makeText(SigninActivity.this, "Conta criada com sucesso.", Toast.LENGTH_LONG).show();
                     Intent intent =  new Intent(SigninActivity.this, MainActivity.class);
@@ -133,7 +133,7 @@ public class SigninActivity extends Activity {
                         erro = "Ao cadastrar usuário.";
                         e.printStackTrace();
                     }
-                    Toast.makeText(SigninActivity.this, "Erro: " + erro, Toast.LENGTH_LONG).show();
+                    Utils.showAlertModal(SigninActivity.this, erro);
                 }
             }
         });

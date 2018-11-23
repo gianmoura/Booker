@@ -15,22 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.gianmoura.booker.adapter.TabAdapter;
 
-/**
- * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
- * the user's scroll progress.
- * <p>
- * To use the component, simply add it to your view hierarchy. Then in your
- * {@link android.app.Activity} or {@link android.support.v4.app.Fragment} call
- * {@link #setViewPager(ViewPager)} providing it the ViewPager this layout is being used for.
- * <p>
- * The colors can be customized in two ways. The first and simplest is to provide an array of colors
- * via {@link #setSelectedIndicatorColors(int...)}. The
- * alternative is via the {@link TabColorizer} interface which provides you complete control over
- * which color is used for any individual position.
- * <p>
- * The views used as tabs can be customized by calling {@link #setCustomTabView(int, int)},
- * providing the layout ID of your custom layout.
- */
 public class SlidingTabLayout extends HorizontalScrollView {
 
     /**
@@ -212,10 +196,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     private void scrollToTab(int tabIndex, int positionOffset) {
         final int tabStripChildCount = mTabStrip.getChildCount();
-        if (!Utils.isLoggedIn()){
-            Utils.showBlockedAccessMassage(getContext());
-            return;
-        }
+
         if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
             return;
         }
@@ -286,7 +267,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         @Override
         public void onClick(View v) {
             if (!Utils.isLoggedIn()){
-                Utils.showBlockedAccessMassage(getContext());
+                Utils.showBlockedAccessMessage(getContext());
                 return;
             }
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
