@@ -5,12 +5,33 @@
     android:layout_height="match_parent"
     tools:context=".fragment.CollectionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/bookCollectionList"
+    <LinearLayout
+        android:id="@+id/bookCollectionLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Minha Coleção de Livros"
+            android:textAlignment="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bookCollectionList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/bookCollectionFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:src="@drawable/ic_action_add"
+        tools:layout_anchor="@+id/bookCollectionLinearLayout"
+        tools:layout_anchorGravity="bottom|end" />
 
 </FrameLayout>

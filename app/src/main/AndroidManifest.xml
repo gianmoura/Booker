@@ -23,7 +23,7 @@
         <!-- Para obter sua API_KEY, acesse: https://developers.google.com/places/android-sdk/signup -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="AIzaSyA6eCzUku1GE721xXafagvtFWQC0Q7IucI" />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -36,6 +36,7 @@
         <activity android:name=".activity.SigninActivity" />
         <activity android:name=".activity.AlertActivity" />
         <activity android:name=".activity.PreferencesActivity" />
+        <activity android:name=".activity.CollectionActivity"></activity>
     </application>
 
 </manifest>

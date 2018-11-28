@@ -7,47 +7,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.helper.FragmentCustomModal;
-import com.gianmoura.booker.model.Book;
-import com.squareup.picasso.Picasso;
+import com.gianmoura.booker.model.Preference;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CollectionAdapter extends
-        RecyclerView.Adapter<CollectionAdapter.InnerViewHolder>
+public class PreferencesAdapter extends
+        RecyclerView.Adapter<PreferencesAdapter.InnerViewHolder>
 {
-    private final List<Book> collection;
+    private final List<Preference> preferences;
     private Context context;
 
-    public CollectionAdapter(
-            @NonNull final List<Book> list )
+    public PreferencesAdapter(
+            @NonNull final List<Preference> list )
     {
-        this.collection = list;
+        this.preferences = list;
     }
 
     public static class InnerViewHolder
             extends
             RecyclerView.ViewHolder
     {
-        @BindView(R.id.list_book_image)
-        ImageView bookImageView;
-        @BindView(R.id.list_book_title)
-        TextView bookTitleView;
-        @BindView(R.id.list_book_authors)
-        TextView bookAuthorsView;
-        @BindView(R.id.list_book_categories)
-        TextView bookCategoriesView;
-        @BindView(R.id.list_book_quantity)
-        TextView bookQuantityView;
-        @BindView(R.id.list_book_value)
-        TextView bookValueView;
+        @BindView(R.id.list_preferences_category)
+        TextView preferenceCategoryView;
         public View view;
 
         public InnerViewHolder(
@@ -56,7 +44,6 @@ public class CollectionAdapter extends
             super( itemView );
             ButterKnife.bind(this, itemView);
             view = itemView;
-
         }
     }
 
@@ -67,7 +54,7 @@ public class CollectionAdapter extends
             final int i )
     {
         context = viewGroup.getContext();
-        final View view = LayoutInflater.from( context ).inflate( R.layout.list_book_collection, viewGroup,
+        final View view = LayoutInflater.from( context ).inflate( R.layout.list_preferences, viewGroup,
                 false );
         final InnerViewHolder innerViewHolder = new InnerViewHolder( view );
         return innerViewHolder;
@@ -78,14 +65,9 @@ public class CollectionAdapter extends
             @NonNull final InnerViewHolder innerViewHolder,
             final int position )
     {
-        if(collection.size() > 0){
-            final Book book = collection.get(position);
-            Picasso.get().load(book.getSmallThumbnail()).into(innerViewHolder.bookImageView);
-            innerViewHolder.bookTitleView.setText(book.getTitle());
-            innerViewHolder.bookAuthorsView.setText("Autores: " + book.getAuthors().toString());
-            innerViewHolder.bookCategoriesView.setText("Categorias: " + book.getCategories().toString());
-            innerViewHolder.bookQuantityView.setText("Quantidade: " + String.valueOf(book.getOwner().getQuantity()));
-            innerViewHolder.bookValueView.setText("Valor da Oferta: R$" + String.valueOf(book.getOwner().getValue()));
+        if(preferences.size() > 0){
+            final Preference preference = preferences.get(position);
+            innerViewHolder.preferenceCategoryView.setText(preference.getCid());
 
             innerViewHolder.view.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -95,7 +77,7 @@ public class CollectionAdapter extends
                     final FragmentCustomModal removeModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
                     TextView message = removeModal.getView().findViewById(R.id.dialog_confirmation_message);
                     ((TextView)removeModal.getView().findViewById(R.id.dialog_confirmation_title)).setText("Remover");
-                    message.setText("Deseja excluir esta obra da sua coleção?");
+                    message.setText("Deseja remover esta categoria de suas preferências?");
 
                     (removeModal.getView().findViewById(R.id.dialog_confirmation_button_no)).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -116,7 +98,7 @@ public class CollectionAdapter extends
                 private void confirmDelete() {
                     final FragmentCustomModal confirmModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
                     TextView message = confirmModal.getView().findViewById(R.id.dialog_confirmation_message);
-                    message.setText("Confirma exclusão ?");
+                    message.setText("Confirma remoção ?");
                     Button noButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_no);
                     noButton.setText("Cancelar");
                     noButton.setOnClickListener(new View.OnClickListener() {
@@ -126,13 +108,13 @@ public class CollectionAdapter extends
                         }
                     });
                     Button yesButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_yes);
-                    yesButton.setText("Excluir Obra");
+                    yesButton.setText("Remover");
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             confirmModal.hide();
-                            collection.remove(position);
-//                            book.getOwner().delete(context);
+                            preferences.remove(position);
+//                            preference.delete(context);
                             notifyDataSetChanged();
                         }
                     });
@@ -142,37 +124,9 @@ public class CollectionAdapter extends
         }
     }
 
-    private void showOfferDialog(final Context context, final Book book) {
-        final FragmentCustomModal customModal = FragmentCustomModal.getInstance(context, R.layout.dialog_offer);
-        View view = customModal.getView();
-        ImageView imageView = view.findViewById(R.id.dialog_offer_image);
-        TextView bookDescriptionView = view.findViewById(R.id.dialog_offer_book_description);
-        bookDescriptionView.setText(book.getOwner().getDescription());
-        Picasso.get().load(book.getThumbnail()).into(imageView);
-        customModal.show();
-
-        Button offer = customModal.getView().findViewById(R.id.dialog_offer_button_yes);
-        offer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                createOffer();
-                customModal.hide();
-            }
-        });
-        Button cancel = customModal.getView().findViewById(R.id.dialog_offer_button_no);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customModal.hide();
-            }
-        });
-    }
-
-
     @Override
     public int getItemCount()
     {
-        return collection.size();
+        return preferences.size();
     }
 }
-

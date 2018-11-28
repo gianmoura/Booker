@@ -70,7 +70,7 @@ public class SigninActivity extends Activity {
     @OnClick(R.id.btnCadastrar)
     public void signin(){
         if(address.getText().length() == 0 || name.getText().length() == 0 || email.getText().length() == 0 || password.getText().length() == 0){
-            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.");
+            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.", null);
             return;
         }
         user.setName(name.getText().toString());
@@ -133,7 +133,7 @@ public class SigninActivity extends Activity {
                         erro = "Ao cadastrar usuário.";
                         e.printStackTrace();
                     }
-                    Utils.showAlertModal(SigninActivity.this, erro);
+                    Utils.showAlertModal(SigninActivity.this, erro, null);
                 }
             }
         });

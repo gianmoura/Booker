@@ -5,11 +5,58 @@
     android:layout_height="match_parent"
     tools:context=".fragment.PreferencesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/preferenceLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Preferências"
-        android:textAlignment="center" />
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Distância Maxima para Busca de Livros"
+            android:paddingTop="10dp"
+            android:textAlignment="center" />
+
+
+        <SeekBar
+            android:id="@+id/preferenceDistanceConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"/>
+
+        <TextView
+            android:id="@+id/preferenceDistanceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1km"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preferências de Categorias"
+            android:padding="15dp"
+            android:textAlignment="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/preferenceList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/preferenceFab"
+        style="@style/AppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:src="@drawable/ic_action_add"
+        tools:layout_anchor="@+id/preferenceLinearLayout"
+        tools:layout_anchorGravity="bottom|end" />
 
 </FrameLayout>

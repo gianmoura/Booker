@@ -5,11 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FilterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Filtragem de Livros"
+        android:text="@string/no_implemented"
+        android:padding="10dp"
         android:textAlignment="center" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/filterCollectionFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="25dp"
+        android:accessibilityHeading="true"
+        android:src="@drawable/ic_action_star_10"
+        tools:layout_anchor="@+id/filterCollectionList"
+        tools:layout_anchorGravity="bottom|end" />
 
 </FrameLayout>

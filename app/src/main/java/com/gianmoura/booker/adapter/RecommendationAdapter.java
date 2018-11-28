@@ -20,13 +20,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CollectionAdapter extends
-        RecyclerView.Adapter<CollectionAdapter.InnerViewHolder>
+public class RecommendationAdapter extends
+        RecyclerView.Adapter<RecommendationAdapter.InnerViewHolder>
 {
     private final List<Book> collection;
     private Context context;
 
-    public CollectionAdapter(
+    public RecommendationAdapter(
             @NonNull final List<Book> list )
     {
         this.collection = list;
@@ -92,51 +92,7 @@ public class CollectionAdapter extends
                 public void onClick(
                         final View v )
                 {
-                    final FragmentCustomModal removeModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
-                    TextView message = removeModal.getView().findViewById(R.id.dialog_confirmation_message);
-                    ((TextView)removeModal.getView().findViewById(R.id.dialog_confirmation_title)).setText("Remover");
-                    message.setText("Deseja excluir esta obra da sua coleção?");
-
-                    (removeModal.getView().findViewById(R.id.dialog_confirmation_button_no)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            removeModal.hide();
-                        }
-                    });
-                    (removeModal.getView().findViewById(R.id.dialog_confirmation_button_yes)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            removeModal.hide();
-                            confirmDelete();
-                        }
-                    });
-                    removeModal.show();
-                }
-
-                private void confirmDelete() {
-                    final FragmentCustomModal confirmModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
-                    TextView message = confirmModal.getView().findViewById(R.id.dialog_confirmation_message);
-                    message.setText("Confirma exclusão ?");
-                    Button noButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_no);
-                    noButton.setText("Cancelar");
-                    noButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            confirmModal.hide();
-                        }
-                    });
-                    Button yesButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_yes);
-                    yesButton.setText("Excluir Obra");
-                    yesButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            confirmModal.hide();
-                            collection.remove(position);
-//                            book.getOwner().delete(context);
-                            notifyDataSetChanged();
-                        }
-                    });
-                    confirmModal.show();
+                    showOfferDialog(context, book);
                 }
             } );
         }
@@ -175,4 +131,5 @@ public class CollectionAdapter extends
         return collection.size();
     }
 }
+
 

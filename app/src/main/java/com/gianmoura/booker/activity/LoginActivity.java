@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
     @OnClick(R.id.btnLogin)
     public void login(){
         if(email.getText().length() == 0 || password.getText().length() == 0){
-            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.");
+            Utils.showAlertModal(this, "Existem campos obrigatórios não preenchidos.", null);
             return;
         }
         user.setEmail(email.getText().toString());
@@ -103,7 +103,7 @@ public class LoginActivity extends Activity {
                     }catch (Exception e){
                         erro = "Processo de login falhou.";
                     }
-                    Utils.showAlertModal(LoginActivity.this, erro);
+                    Utils.showAlertModal(LoginActivity.this, erro, null);
                 }
             }
         });

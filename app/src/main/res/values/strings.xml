@@ -22,7 +22,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="item_settings">Configurações</string>
+    <string name="item_about">Sobre o Booker</string>
     <string name="item_logout">Sair</string>
     <string name="item_signin">Entrar</string>
     <string name="item_create_account">Criar conta</string>

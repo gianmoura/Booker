@@ -1,6 +1,7 @@
 package com.gianmoura.booker.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gianmoura.booker.R;
+import com.gianmoura.booker.activity.CollectionActivity;
 import com.gianmoura.booker.adapter.CollectionAdapter;
 import com.gianmoura.booker.model.Book;
 import com.gianmoura.booker.model.BookOwner;
@@ -20,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class CollectionFragment extends Fragment {
@@ -67,6 +70,11 @@ public class CollectionFragment extends Fragment {
         collection.add(book);
         collection.add(book);
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.bookCollectionFab)
+    public void onClickFab(){
+        startActivity(new Intent(getActivity(), CollectionActivity.class));
     }
 
 }

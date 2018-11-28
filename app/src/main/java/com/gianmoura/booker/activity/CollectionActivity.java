@@ -14,14 +14,14 @@ import com.gianmoura.booker.helper.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PreferencesActivity extends Activity {
+public class CollectionActivity extends Activity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_collection);
 
         ButterKnife.bind(this);
 
@@ -29,7 +29,6 @@ public class PreferencesActivity extends Activity {
         toolbar.setTitle("Booker");
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.icons));
         setActionBar(toolbar);
-
     }
 
     @Override

@@ -1,6 +1,12 @@
 package com.gianmoura.booker.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.gianmoura.booker.config.FirebaseConfig;
+import com.gianmoura.booker.helper.Utils;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
@@ -25,6 +31,20 @@ public class BookOwner {
     public void save(){
         DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
         databaseReference.child("bookowners").child(getUid()).child(getBid()).setValue(this);
+    }
+
+    public void delete(final Context context){
+        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
+        databaseReference.child("bookowners").child(getUid()).child(getBid()).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if(databaseError == null){
+                    Utils.showAlertModal(context, "Livro removido", "Confirmação");
+                }else{
+                    Utils.showAlertModal(context, "Erro: "+databaseError.getMessage(), null);
+                }
+            }
+        });
     }
 
     @Exclude
