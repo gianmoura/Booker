@@ -1,45 +1,59 @@
 package com.gianmoura.booker.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.gianmoura.booker.config.FirebaseConfig;
+import com.gianmoura.booker.helper.Utils;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
-import java.util.List;
-
 /*
--Books
-    -bid
-        -title
-        -smallThumbnail
-        -thumbnail
-        -isbn10
-        -isbn13
-        -authors
-            -authorName
-        -categories
-            -cid
-            -cid1
+-BookOwners
+    -uid
+        -bid
+            -quantity
+            -description
+            -value
  */
 public class Book {
+    private String uid;
     private String bid;
-    private String title;
-    private String smallThumbnail;
-    private String thumbnail;
-    private String isbn10;
-    private String isbn13;
-    private List<String> authors;
-    private List<String> categories;
-    private BookOwner owner;
+    private String description;
+    private int quantity;
+    private double value;
 
     public Book() {
     }
 
     public void save(){
-        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference().child("books");
-        if(getBid() == null){
-            setBid(databaseReference.push().getKey());
-        }
-        databaseReference.child(getBid()).setValue(this);
+        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
+        databaseReference.child("books").child(getUid()).child(getBid()).setValue(this);
+    }
+
+    public void delete(final Context context){
+        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
+        databaseReference.child("books").child(getUid()).child(getBid()).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if(databaseError == null){
+                    Utils.showAlertModal(context, "Livro removido", "Confirmação");
+                }else{
+                    Utils.showAlertModal(context, "Erro: "+databaseError.getMessage(), null);
+                }
+            }
+        });
+    }
+
+    @Exclude
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Exclude
@@ -51,68 +65,27 @@ public class Book {
         this.bid = bid;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getSmallThumbnail() {
-        return smallThumbnail;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setSmallThumbnail(String smallThumbnail) {
-        this.smallThumbnail = smallThumbnail;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public double getValue() {
+        return value;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public String getIsbn10() {
-        return isbn10;
-    }
-
-    public void setIsbn10(String isbn10) {
-        this.isbn10 = isbn10;
-    }
-
-    public String getIsbn13() {
-        return isbn13;
-    }
-
-    public void setIsbn13(String isbn13) {
-        this.isbn13 = isbn13;
-    }
-
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
-
-    @Exclude
-    public BookOwner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(BookOwner owner) {
-        this.owner = owner;
+    public void setValue(double value) {
+        this.value = value;
     }
 }

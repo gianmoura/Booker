@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.helper.FragmentCustomModal;
-import com.gianmoura.booker.model.Book;
+import com.gianmoura.booker.model.VolumeInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,11 +23,11 @@ import butterknife.ButterKnife;
 public class RecommendationAdapter extends
         RecyclerView.Adapter<RecommendationAdapter.InnerViewHolder>
 {
-    private final List<Book> collection;
+    private final List<VolumeInfo> collection;
     private Context context;
 
     public RecommendationAdapter(
-            @NonNull final List<Book> list )
+            @NonNull final List<VolumeInfo> list )
     {
         this.collection = list;
     }
@@ -79,8 +79,8 @@ public class RecommendationAdapter extends
             final int position )
     {
         if(collection.size() > 0){
-            final Book book = collection.get(position);
-            Picasso.get().load(book.getSmallThumbnail()).into(innerViewHolder.bookImageView);
+            final VolumeInfo book = collection.get(position);
+            Picasso.get().load(book.getImageLinks().getThumbnail()).into(innerViewHolder.bookImageView);
             innerViewHolder.bookTitleView.setText(book.getTitle());
             innerViewHolder.bookAuthorsView.setText("Autores: " + book.getAuthors().toString());
             innerViewHolder.bookCategoriesView.setText("Categorias: " + book.getCategories().toString());
@@ -98,13 +98,13 @@ public class RecommendationAdapter extends
         }
     }
 
-    private void showOfferDialog(final Context context, final Book book) {
+    private void showOfferDialog(final Context context, final VolumeInfo book) {
         final FragmentCustomModal customModal = FragmentCustomModal.getInstance(context, R.layout.dialog_offer);
         View view = customModal.getView();
         ImageView imageView = view.findViewById(R.id.dialog_offer_image);
         TextView bookDescriptionView = view.findViewById(R.id.dialog_offer_book_description);
         bookDescriptionView.setText(book.getOwner().getDescription());
-        Picasso.get().load(book.getThumbnail()).into(imageView);
+        Picasso.get().load(book.getImageLinks().getThumbnail()).into(imageView);
         customModal.show();
 
         Button offer = customModal.getView().findViewById(R.id.dialog_offer_button_yes);

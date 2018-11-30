@@ -9,14 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gianmoura.booker.R;
+import com.gianmoura.booker.activity.AlertActivity;
 import com.gianmoura.booker.activity.MainActivity;
 import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Utils {
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     public static boolean isOnline(Context context) {
         return Connectivity.isConnected(context);
@@ -77,4 +76,9 @@ public class Utils {
         context.startActivity(new Intent(context, activity.getClass()));
     }
 
+    public static void checkDeviceConnection(final Activity activity, final Context context) {
+        if (!Utils.isOnline(context)){
+            context.startActivity(new Intent(context, activity.getClass()));
+        }
+    }
 }

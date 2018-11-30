@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,9 +13,70 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/no_implemented"
-        android:padding="10dp"
-        android:textAlignment="center" />
+        android:layout_height="wrap_content"
+        android:text="Cadastro de Livros"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/createBookCollection_search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Titulo ou ISBN da obra que será cadastrada"
+        android:textAlignment="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
+
+    <Button
+        android:id="@+id/createBookCollection_search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:text="Buscar"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="16sp" />
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<Button-->
+            <!--android:id="@+id/createBookCollection_button_title"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginTop="1dp"-->
+            <!--android:background="@android:color/white"-->
+            <!--android:text="Buscar por Titulo"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+            <!--android:textColor="@color/colorPrimaryText"-->
+            <!--android:textSize="16sp"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/createBookCollection_text_view_half"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/dialog_confirmation_message" />-->
+
+        <!---->
+
+        <!--<View-->
+            <!--android:id="@+id/createBookCollection_text_view_half"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="@android:color/darker_gray"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/createBookCollection_button_isbn"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/createBookCollection_button_title" />-->
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Livros Pesquisados"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textSize="18dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/createBookCollection_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

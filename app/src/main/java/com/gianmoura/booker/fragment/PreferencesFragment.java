@@ -2,8 +2,6 @@ package com.gianmoura.booker.fragment;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +14,9 @@ import android.widget.TextView;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.activity.PreferencesActivity;
-import com.gianmoura.booker.adapter.CollectionAdapter;
 import com.gianmoura.booker.adapter.PreferencesAdapter;
 import com.gianmoura.booker.helper.Utils;
-import com.gianmoura.booker.model.Book;
 import com.gianmoura.booker.model.Preference;
-import com.google.android.gms.flags.impl.SharedPreferencesFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +24,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.internal.Util;
 
 
 public class PreferencesFragment extends Fragment {
@@ -103,12 +97,6 @@ public class PreferencesFragment extends Fragment {
         preference.setActivity(1);
 
         preferences.clear();
-        preferences.add(preference);
-        preferences.add(preference);
-        preferences.add(preference);
-        preferences.add(preference);
-        preferences.add(preference);
-        preferences.add(preference);
         preferences.add(preference);
         preferences.add(preference);
         preferences.add(preference);

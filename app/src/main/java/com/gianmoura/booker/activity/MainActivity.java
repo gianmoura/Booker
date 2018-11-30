@@ -37,10 +37,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (!Utils.isOnline(this)){
-            startActivity(new Intent(this, AlertActivity.class));
-            finish();
-        }
+        Utils.checkDeviceConnection(new AlertActivity(), this);
         //Instancia TabLayout
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
         adapter.addFragment(new FilterFragment(), R.drawable.ic_search);
