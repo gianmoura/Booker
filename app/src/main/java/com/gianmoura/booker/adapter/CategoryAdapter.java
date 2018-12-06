@@ -6,11 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.helper.FragmentCustomModal;
+import com.gianmoura.booker.helper.Utils;
+import com.gianmoura.booker.model.Category;
 import com.gianmoura.booker.model.Preference;
 
 import java.util.List;
@@ -18,16 +19,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PreferencesAdapter extends
-        RecyclerView.Adapter<PreferencesAdapter.InnerViewHolder>
+public class CategoryAdapter extends
+        RecyclerView.Adapter<CategoryAdapter.InnerViewHolder>
 {
+    private final List<Category> categories;
     private final List<Preference> preferences;
     private Context context;
 
-    public PreferencesAdapter(
-            @NonNull final List<Preference> list )
+    public CategoryAdapter(
+            @NonNull final List<Category> list,
+            @NonNull final List<Preference> preferences)
     {
-        this.preferences = list;
+        this.categories = list;
+        this.preferences = preferences;
     }
 
     public static class InnerViewHolder
@@ -65,9 +69,9 @@ public class PreferencesAdapter extends
             @NonNull final InnerViewHolder innerViewHolder,
             final int position )
     {
-        if(preferences.size() > 0){
-            final Preference preference = preferences.get(position);
-            innerViewHolder.preferenceCategoryView.setText(preference.getTag());
+        if(categories.size() > 0){
+            final Category category = categories.get(position);
+            innerViewHolder.preferenceCategoryView.setText(category.getTag());
 
             innerViewHolder.view.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -76,8 +80,8 @@ public class PreferencesAdapter extends
                 {
                     final FragmentCustomModal removeModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
                     TextView message = removeModal.getView().findViewById(R.id.dialog_confirmation_message);
-                    ((TextView)removeModal.getView().findViewById(R.id.dialog_confirmation_title)).setText("Remover");
-                    message.setText("Deseja remover esta categoria de suas preferências?");
+                    ((TextView)removeModal.getView().findViewById(R.id.dialog_confirmation_title)).setText("Adicionar");
+                    message.setText("Deseja adicionar esta categoria às suas preferências?");
 
                     (removeModal.getView().findViewById(R.id.dialog_confirmation_button_no)).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -88,37 +92,23 @@ public class PreferencesAdapter extends
                     (removeModal.getView().findViewById(R.id.dialog_confirmation_button_yes)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            categories.remove(position);
+                            notifyDataSetChanged();
+                            addCategory(category);
                             removeModal.hide();
-                            confirmDelete();
                         }
                     });
                     removeModal.show();
                 }
 
-                private void confirmDelete() {
-                    final FragmentCustomModal confirmModal = FragmentCustomModal.getInstance(context, R.layout.dialog_confirmaton);
-                    TextView message = confirmModal.getView().findViewById(R.id.dialog_confirmation_message);
-                    message.setText("Confirma remoção ?");
-                    Button noButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_no);
-                    noButton.setText("Cancelar");
-                    noButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            confirmModal.hide();
-                        }
-                    });
-                    Button yesButton = confirmModal.getView().findViewById(R.id.dialog_confirmation_button_yes);
-                    yesButton.setText("Remover");
-                    yesButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            confirmModal.hide();
-                            preferences.remove(position);
-                            preference.delete(context);
-                            notifyDataSetChanged();
-                        }
-                    });
-                    confirmModal.show();
+                private void addCategory(Category category) {
+                    //adiciona category a lista de preferencias
+                    Preference preference = new Preference();
+                    preference.setTag(category.getTag());
+                    preference.setActivity(1);
+                    preference.setCid(category.getCid());
+                    preference.setUid(Utils.getLoggedUid());
+                    preferences.add(preference);
                 }
             } );
         }
@@ -127,6 +117,6 @@ public class PreferencesAdapter extends
     @Override
     public int getItemCount()
     {
-        return preferences.size();
+        return categories.size();
     }
 }

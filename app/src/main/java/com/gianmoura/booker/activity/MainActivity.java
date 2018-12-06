@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Utils.checkDeviceConnection(new AlertActivity(), this);
+        Utils.checkDeviceConnection(this);
         //Instancia TabLayout
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
         adapter.addFragment(new FilterFragment(), R.drawable.ic_search);
@@ -81,10 +81,10 @@ public class MainActivity extends FragmentActivity {
                 Utils.logoutUser(this);
                 return true;
             case R.id.item_signin:
-                Utils.redirectTo(new LoginActivity(), this);
+                Utils.redirectTo(new Intent(this, LoginActivity.class), this);
                 return true;
             case R.id.item_create_account:
-                Utils.redirectTo(new SigninActivity(), this);
+                Utils.redirectTo(new Intent(this, SigninActivity.class), this);
                 return true;
             case R.id.item_about:
                 return true;

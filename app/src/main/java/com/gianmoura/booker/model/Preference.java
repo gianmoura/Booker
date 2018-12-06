@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
 -Preferences
@@ -98,5 +99,18 @@ public class Preference {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Preference that = (Preference) o;
+        return Objects.equals(getCid(), that.getCid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCid());
     }
 }

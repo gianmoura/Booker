@@ -1,10 +1,13 @@
 package com.gianmoura.booker.model;
 
+import android.support.annotation.NonNull;
+
 import com.gianmoura.booker.config.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
 -Categories
@@ -16,7 +19,6 @@ import java.util.List;
 public class Category {
     private String cid;
     private String tag;
-    private List<String> books;
 
     public Category() {
     }
@@ -27,6 +29,18 @@ public class Category {
             setCid(categoriesReference.push().getKey());
         }
         categoriesReference.child(getCid()).setValue(this);
+    }
+
+    public void save(@NonNull final List<Category> categories){
+        if (categories != null){
+            DatabaseReference categoriesReference = FirebaseConfig.getDatabaseReference().child("categories");
+            for (Category category: categories) {
+                if(category.getCid() == null){
+                    category.setCid(categoriesReference.push().getKey());
+                }
+                categoriesReference.child(category.getCid()).setValue(category);
+            }
+        }
     }
 
     @Exclude
@@ -46,11 +60,16 @@ public class Category {
         this.tag = tag;
     }
 
-    public List<String> getBooks() {
-        return books;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(getCid(), category.getCid());
     }
 
-    public void setBooks(List<String> books) {
-        this.books = books;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCid());
     }
 }

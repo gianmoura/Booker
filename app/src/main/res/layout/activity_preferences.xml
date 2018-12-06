@@ -10,11 +10,47 @@
     <include
         layout="@layout/toolbar"/>
 
-    <TextView
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/no_implemented"
-        android:padding="10dp"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/preferenceSelectionLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Categorias Disponíveis"
+                android:textAlignment="center" />
+
+            <SearchView
+                android:id="@+id/preferenceSelectionSearchText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:queryHint="Busque por categorias..."></SearchView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/preferenceSelectionList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/preferenceSelectionFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="25dp"
+            android:src="@drawable/ic_action_save"
+            tools:layout_anchor="@+id/preferenceSelectionLinearLayout"
+            tools:layout_anchorGravity="top|start" />
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -1,8 +1,8 @@
 package com.gianmoura.booker.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gianmoura.booker.R;
-import com.gianmoura.booker.activity.MainActivity;
+import com.gianmoura.booker.activity.BookRegisterActivity;
 import com.gianmoura.booker.config.FirebaseConfig;
+import com.gianmoura.booker.helper.BackgroundTask;
 import com.gianmoura.booker.helper.FragmentCustomModal;
 import com.gianmoura.booker.helper.Utils;
 import com.gianmoura.booker.model.ImageLinks;
-import com.gianmoura.booker.model.Item;
 import com.gianmoura.booker.model.VolumeInfo;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -93,7 +91,7 @@ public class SearchCollectionAdapter extends
             final int position )
     {
         if(collection.size() > 0){
-            checkNullFields(collection);
+            Utils.checkNullFields(collection);
             final VolumeInfo volumeInfo = collection.get(position);
             Picasso.get().load(volumeInfo.getImageLinks().getThumbnail()).into(innerViewHolder.bookImageView);
             innerViewHolder.bookTitleView.setText(volumeInfo.getTitle());
@@ -119,7 +117,7 @@ public class SearchCollectionAdapter extends
                     (removeModal.getView().findViewById(R.id.dialog_confirmation_button_yes)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            saveVolumeInfoAndRedirect(collection.get(position));
+                            new SearchTask(context, collection.get(position)).execute();
                             removeModal.hide();
                         }
                     });
@@ -129,75 +127,74 @@ public class SearchCollectionAdapter extends
         }
     }
 
+    private class SearchTask extends BackgroundTask {
+        private VolumeInfo volumeInfo;
+
+        public SearchTask(Context context, VolumeInfo volumeInfo) {
+            super(context);
+            this.volumeInfo = volumeInfo;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            saveVolumeInfoAndRedirect(volumeInfo);
+            super.doInBackground(params);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+        }
+    }
+
     private void saveVolumeInfoAndRedirect(final VolumeInfo volumeInfo) {
-
-
         DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference()
                 .child("volumesInfo");
+
+        if (volumeInfo.getCategories().size() == 0){
+            ArrayList<String> defaultCategory = new ArrayList<>();
+            if (volumeInfo.getAuthors().size() > 0){
+                for (String author : volumeInfo.getAuthors()){
+                    defaultCategory.add(author);
+                }
+            }
+            defaultCategory.add(volumeInfo.getTitle());
+            volumeInfo.setCategories(defaultCategory);
+        }
+
         Query query = databaseReference.orderByChild("title").equalTo(volumeInfo.getTitle());
-//        query.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String bid;
                 if (dataSnapshot.getValue() != null){
-//                    VolumeInfo value = dataSnapshot.getValue(VolumeInfo.class);
                     HashMap<String,VolumeInfo> value = (HashMap<String, VolumeInfo>)dataSnapshot.getValue();
-
                     bid = value.toString().split("\\=")[0].substring(1);
+                    volumeInfo.setBid(bid);
+                    volumeInfo.save();
                 }else{
                     bid = volumeInfo.save();
                 }
-                Utils.showAlertModal(context, bid, null);
-//                Utils.redirectTo(new MainActivity(), context);
+                if (bid == null){
+                    Utils.showAlertModal(context, "Não foi possível recuperar os dados do livro selecionado, tente novamente por favor.", null);
+                }else{
+                    Utils.redirectTo(new Intent(context, BookRegisterActivity.class).putExtra("bid", bid), context);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                if (databaseError.getMessage() != null){
+                    Utils.showAlertModal(context, databaseError.getMessage(), null);
+                }
             }
         });
-    }
-
-    private void checkNullFields(List<VolumeInfo> collection) {
-        for (VolumeInfo volume : collection) {
-            if (volume.getCategories() == null){
-                volume.setCategories(new ArrayList<String>());
-            }
-            if (volume.getAuthors() == null){
-                volume.setAuthors(new ArrayList<String>());
-            }
-            if (volume.getImageLinks() == null){
-                ImageLinks imageLinks = new ImageLinks();
-                imageLinks.setThumbnail(String.valueOf(R.drawable.books_render));
-                volume.setImageLinks(imageLinks);
-            }
-        }
     }
 
     @Override

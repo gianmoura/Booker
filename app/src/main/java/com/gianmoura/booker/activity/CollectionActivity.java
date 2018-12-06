@@ -2,13 +2,16 @@ package com.gianmoura.booker.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,8 +51,11 @@ public class CollectionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-
+        Utils.checkDeviceConnection(this);
         ButterKnife.bind(this);
+
+        searchText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchText.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
         //Configura Toolbar
         toolbar.setTitle("Booker");
@@ -142,10 +148,10 @@ public class CollectionActivity extends Activity {
                 Utils.logoutUser(this);
                 return true;
             case R.id.item_signin:
-                Utils.redirectTo(new LoginActivity(), this);
+                Utils.redirectTo(new Intent(this, LoginActivity.class), this);
                 return true;
             case R.id.item_create_account:
-                Utils.redirectTo(new SigninActivity(), this);
+                Utils.redirectTo(new Intent(this, SigninActivity.class), this);
                 return true;
             case R.id.item_about:
                 return true;

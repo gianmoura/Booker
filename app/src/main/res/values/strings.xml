@@ -39,4 +39,6 @@
     <string name="button_cancel">Cancelar</string>
     <string name="button_continue">Continuar</string>
     <string name="dialog_description_title">Descrição do proprietário</string>
+    <string name="book_register_description_hint">Descrição do exemplar e informações importantes para quem estiver interessado em adquirir o mesmo, como o tempo de uso e estado de conservação.</string>
+    <string name="book_register_price_hint">Preço de oferta pelo exemplar(0 para doações)</string>
 </resources>

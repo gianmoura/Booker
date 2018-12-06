@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gianmoura.booker.R;
+import com.gianmoura.booker.helper.BackgroundTask;
 import com.gianmoura.booker.helper.FragmentCustomModal;
+import com.gianmoura.booker.helper.Utils;
 import com.gianmoura.booker.model.VolumeInfo;
 import com.squareup.picasso.Picasso;
 
@@ -79,6 +81,7 @@ public class CollectionAdapter extends
             final int position )
     {
         if(collection.size() > 0){
+            Utils.checkNullFields(collection);
             final VolumeInfo book = collection.get(position);
             Picasso.get().load(book.getImageLinks().getThumbnail()).into(innerViewHolder.bookImageView);
             innerViewHolder.bookTitleView.setText(book.getTitle());
@@ -131,16 +134,48 @@ public class CollectionAdapter extends
                         @Override
                         public void onClick(View v) {
                             confirmModal.hide();
+                            book.getOwner().delete(context);
                             collection.remove(position);
-//                            book.getOwner().delete(context);
+                            new DeleteTask(context).execute();
                             notifyDataSetChanged();
                         }
                     });
                     confirmModal.show();
                 }
+
+                class DeleteTask extends BackgroundTask {
+
+                    public DeleteTask(Context context) {
+                        super(context);
+                    }
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                    }
+
+                    @Override
+                    protected Boolean doInBackground(Void... params) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean result) {
+                        super.onPostExecute(result);
+                    }
+                }
             } );
         }
     }
+
+
+
+
 
     @Override
     public int getItemCount()
