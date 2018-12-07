@@ -120,6 +120,9 @@ public class PreferencesFragment extends Fragment {
                 if (preferences != null){
                     preferences.clear();
                 }
+                if (preferencesSet != null){
+                    preferencesSet.clear();
+                }
                 for (DataSnapshot category: dataSnapshot.getChildren()) {
                     Preference value = category.getValue(Preference.class);
                     value.setCid(category.getKey());

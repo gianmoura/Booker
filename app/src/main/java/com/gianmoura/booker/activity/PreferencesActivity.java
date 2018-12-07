@@ -89,6 +89,9 @@ public class PreferencesActivity extends Activity {
                 if (preferredCategories != null){
                     preferredCategories.clear();
                 }
+                if (availableCategoriesSet != null){
+                    availableCategoriesSet.clear();
+                }
                 for (DataSnapshot category: dataSnapshot.getChildren()) {
                     Preference value = category.getValue(Preference.class);
                     value.setCid(category.getKey());
