@@ -73,6 +73,9 @@ public class CollectionFragment extends Fragment {
 
     private void getCollection(){
         final String uid = Utils.getLoggedUid();
+        if (uid == null || uid == ""){
+            return;
+        }
         if (booksReference == null){
             booksReference = FirebaseConfig.getDatabaseReference()
                     .child("books").child(uid);
@@ -112,14 +115,16 @@ public class CollectionFragment extends Fragment {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Object value = dataSnapshot.getValue(VolumeInfo.class);
-                    VolumeInfo volumeInfo = (VolumeInfo) value;
-                    volumeInfo.setOwner(book);
-                    volumeInfo.setBid(dataSnapshot.getKey());
-                    volumeInfoSet.add(volumeInfo);
-                    volumeInfoCollection.clear();
-                    volumeInfoCollection.addAll(volumeInfoSet);
-                    adapter.notifyDataSetChanged();
+                    if(dataSnapshot.getValue() != null){
+                        Object value = dataSnapshot.getValue(VolumeInfo.class);
+                        VolumeInfo volumeInfo = (VolumeInfo) value;
+                        volumeInfo.setOwner(book);
+                        volumeInfo.setBid(dataSnapshot.getKey());
+                        volumeInfoSet.add(volumeInfo);
+                        volumeInfoCollection.clear();
+                        volumeInfoCollection.addAll(volumeInfoSet);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
