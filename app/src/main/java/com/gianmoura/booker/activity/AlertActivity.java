@@ -1,18 +1,23 @@
 package com.gianmoura.booker.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.gianmoura.booker.R;
 import com.gianmoura.booker.helper.BackgroundTask;
+import com.gianmoura.booker.helper.FragmentCustomModal;
 import com.gianmoura.booker.helper.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AlertActivity extends Activity {
+    private FragmentCustomModal customModal = null;
+    private ConnectionTask connectionTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,16 @@ public class AlertActivity extends Activity {
 
     @OnClick(R.id.btnRefresh)
     public void refreshAlert(){
-        new ConnectionTask(this).execute();
+        if (connectionTask == null){
+            connectionTask = new ConnectionTask(this);
+        }
+        if (connectionTask.getStatus() == AsyncTask.Status.PENDING){
+            connectionTask.execute();
+        }
+        if (connectionTask.getStatus() == AsyncTask.Status.FINISHED){
+            connectionTask = new ConnectionTask(this);
+            connectionTask.execute();
+        }
     }
 
     private class ConnectionTask extends BackgroundTask {
@@ -53,8 +67,12 @@ public class AlertActivity extends Activity {
 
     private void verifyConnection(){
         if (Utils.isOnline(this)){
-            startActivity( new Intent( this, MainActivity.class) );
-            finish();
+            if (connectionTask != null){
+                connectionTask.onPostExecute(true);
+                startActivity( new Intent( this, MainActivity.class) );
+                finish();
+            }
         }
     }
+
 }

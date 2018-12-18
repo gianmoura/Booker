@@ -1,5 +1,6 @@
 package com.gianmoura.booker.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -7,8 +8,10 @@ import com.gianmoura.booker.R;
 
 public abstract class BackgroundTask extends AsyncTask<Void, Void, Boolean> {
     private FragmentCustomModal customModal = null;
+    private Context context;
 
     public BackgroundTask(Context context) {
+        this.context = context;
         if (customModal == null){
             customModal = FragmentCustomModal.getInstance(context, R.layout.progress_dialog);
         }
@@ -33,5 +36,6 @@ public abstract class BackgroundTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         customModal.hide();
+        customModal.dismiss();
     }
 }

@@ -257,8 +257,6 @@ public class BookRegisterActivity extends Activity {
             case R.id.item_create_account:
                 Utils.redirectTo(new Intent(this, SigninActivity.class), this);
                 return true;
-            case R.id.item_about:
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

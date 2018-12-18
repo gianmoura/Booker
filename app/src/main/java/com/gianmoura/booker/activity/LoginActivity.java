@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +100,9 @@ public class LoginActivity extends Activity {
                     try{
                         throw task.getException();
                     }catch (FirebaseAuthInvalidCredentialsException e){
-                        erro = "Email ou senha incorretos.";
+                        erro = "A senha está incorreta.";
+                    }catch (FirebaseAuthInvalidUserException e){
+                        erro = "Email incorreto.";
                     }catch (Exception e){
                         erro = "Processo de login falhou.";
                     }

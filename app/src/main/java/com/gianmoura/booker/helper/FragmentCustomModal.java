@@ -32,6 +32,10 @@ public class FragmentCustomModal
         return view;
     }
 
+    public void dismiss(){
+        alertDialog.dismiss();
+    }
+
     public void show()
     {
         alertDialog.show();
